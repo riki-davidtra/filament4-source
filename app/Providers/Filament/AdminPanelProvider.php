@@ -18,6 +18,11 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Joaopaulolndev\FilamentEditProfile\FilamentEditProfilePlugin;
+use Filament\Navigation\MenuItem;
+use Joaopaulolndev\FilamentEditProfile\Pages\EditProfilePage;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\App;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -27,10 +32,17 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->login()
+            ->login(\App\Filament\Auth\Login::class)
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Indigo,
             ])
+            ->brandLogo(fn() => view('filament.components.brand-logo'))
+            ->brandName(function () {
+                return App::make('settingItems')['site_name']->value ?? 'Site Name';
+            })
+            ->favicon(function () {
+                return App::make('settingItems')['favicon']->value ?? asset('/assets/images/favicon.png');
+            })
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([
@@ -54,6 +66,34 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+            ])
+            ->plugins([
+                FilamentEditProfilePlugin::make()
+                    ->slug('my-profile')
+                    ->setTitle('My Profile')
+                    ->setNavigationLabel('My Profile')
+                    // ->setNavigationGroup('Group Profile')
+                    ->setIcon('heroicon-o-user')
+                    // ->setSort(10)
+                    // ->canAccess(fn() => auth()->user()->id === 1)
+                    ->shouldRegisterNavigation(false)
+                    // ->shouldShowEmailForm()
+                    ->shouldShowDeleteAccountForm(false)
+                    // ->shouldShowSanctumTokens()
+                    // ->shouldShowBrowserSessionsForm() 
+                    ->shouldShowAvatarForm(value: true, directory: 'avatars', rules: 'mimes:jpeg,png|max:2048')
+                // ->customProfileComponents([
+                //     \App\Livewire\CustomProfileComponent::class,
+                // ])
+            ])
+            ->userMenuItems([
+                'profile' => MenuItem::make()
+                    ->label(fn() => Auth::user()->name)
+                    ->url(fn(): string => EditProfilePage::getUrl())
+                    ->icon('heroicon-m-user-circle'),
+            ])
+            ->viteTheme('resources/css/filament/admin/theme.css')
+            ->sidebarFullyCollapsibleOnDesktop()
+            ->sidebarWidth('16rem');
     }
 }

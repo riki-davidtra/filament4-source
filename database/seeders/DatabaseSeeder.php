@@ -15,9 +15,24 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]); 
+
+        $seeders = [
+            UserSeeder::class,
+            SettingSeeder::class,
+            // SyncPermissionsSeeder::class,
+            // RolePermissionSeeder::class,
+        ];
+
+        foreach ($seeders as $seeder) {
+            $basename = class_basename($seeder);
+            if (\Illuminate\Support\Facades\Config::get("seeder.skip.{$basename}", false) === true) {
+                continue;
+            }
+            $this->call($seeder);
+        }
     }
 }
