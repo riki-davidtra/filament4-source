@@ -60,21 +60,14 @@
          </p>
      </div>
 
-     {{-- <x-filament-panels::form wire:submit="authenticate" class="mt-6">
-         {{ $this->form }}
-
-         <x-filament-panels::form.actions :actions="$this->getCachedFormActions()" :full-width="$this->hasFullWidthFormActions()" />
-
-         @include('auth.google-sign-in-button')
-     </x-filament-panels::form> --}}
-
      <form wire:submit.prevent="authenticate" class="mt-6">
          {{ $this->form }}
 
          <div class="mt-4 space-y-4">
-             <x-filament::button type="submit" color="primary" class="w-full">
+             <x-filament::button type="submit" color="primary" wire:target="authenticate" wire:loading.attr="disabled" spinner class="w-full">
                  Login
              </x-filament::button>
+
 
              @include('auth.google-sign-in-button')
          </div>
