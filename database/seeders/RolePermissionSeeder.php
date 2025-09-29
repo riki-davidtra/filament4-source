@@ -24,7 +24,9 @@ class RolePermissionSeeder extends Seeder
         $userRole  = Role::firstOrCreate(['name' => 'user']);
 
 
-        // Permissions
+        // Permissions 
+        $adminPermissions = Permission::whereNotLike('name', '%:Role')->get();
+
         $userPermissions = [
             // 'ViewAny:User',
             // 'View:User',
@@ -39,7 +41,7 @@ class RolePermissionSeeder extends Seeder
             // 'Reorder:User',
         ];
 
-        $adminRole->givePermissionTo(Permission::all());
+        $adminRole->givePermissionTo($adminPermissions);
         $userRole->givePermissionTo($userPermissions);
 
         // Assign roles to user
