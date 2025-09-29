@@ -23,8 +23,7 @@ class DatabaseSeeder extends Seeder
         $seeders = [
             UserSeeder::class,
             SettingSeeder::class,
-            // SyncPermissionsSeeder::class,
-            // RolePermissionSeeder::class,
+            RolePermissionSeeder::class,
         ];
 
         foreach ($seeders as $seeder) {

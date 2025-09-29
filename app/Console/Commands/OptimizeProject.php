@@ -33,6 +33,7 @@ class OptimizeProject extends Command
             'config:clear',
             'cache:clear',
             'filament:optimize',
+            'permission:cache-reset',
         ];
 
         foreach ($commands as $command) {

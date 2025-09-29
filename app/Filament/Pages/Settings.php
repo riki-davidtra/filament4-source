@@ -10,6 +10,7 @@ use Filament\Notifications\Notification;
 use BackedEnum;
 use Filament\Support\Icons\Heroicon;
 
+use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\RichEditor;
@@ -19,7 +20,7 @@ use Filament\Schemas\Components\Section;
 
 class Settings extends Page implements Forms\Contracts\HasForms
 {
-    use WithFileUploads, Forms\Concerns\InteractsWithForms;
+    use WithFileUploads, Forms\Concerns\InteractsWithForms, HasPageShield;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCog;
     protected string $view                                  = 'filament.pages.settings';
@@ -27,16 +28,6 @@ class Settings extends Page implements Forms\Contracts\HasForms
 
     public $settings;
     public $items = [];
-
-    // public static function canAccess(): bool
-    // {
-    //     return Auth::user()?->can('viewAny', \App\Models\Setting::class) ?? false;
-    // }
-
-    // public static function canAccess(): bool
-    // {
-    //     return auth()->user()->canManageSettings();
-    // }
 
     public function mount(): void
     {
