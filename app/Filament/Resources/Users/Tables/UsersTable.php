@@ -10,12 +10,26 @@ use Filament\Tables\Table;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Actions\ForceDeleteBulkAction;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
 
 class UsersTable
 {
     public static function configure(Table $table): Table
     {
+        $user         = Auth::user();
+        $isSuperAdmin = $user->hasRole('super_admin');
+
         return $table
+            ->modifyQueryUsing(function (Builder $query, $livewire) use ($isSuperAdmin) {
+                if (!$isSuperAdmin) {
+                    $query->whereDoesntHave('roles', function ($q) {
+                        $q->where('name', 'super_admin');
+                    });
+                }
+                return $query;
+            })
+            ->defaultSort('created_at', 'desc')
             ->columns([
                 TextColumn::make('name')
                     ->searchable()
@@ -26,6 +40,11 @@ class UsersTable
                     ->sortable(),
                 TextColumn::make('username')
                     ->label('Username')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('roles.name')
+                    ->label('Roles')
+                    ->badge()
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('created_at')

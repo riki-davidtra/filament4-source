@@ -4,12 +4,18 @@ namespace App\Filament\Resources\Users\Schemas;
 
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
+use Illuminate\Database\Eloquent\Builder;
 use Filament\Schemas\Schema;
+use Illuminate\Support\Facades\Auth;
 
 class UserForm
 {
     public static function configure(Schema $schema): Schema
     {
+        $user         = Auth::user();
+        $isSuperAdmin = $user->hasRole('super_admin');
+
         return $schema
             ->components([
                 TextInput::make('name')
@@ -48,6 +54,22 @@ class UserForm
                     ->minLength(6)
                     ->revealable()
                     ->dehydrated(fn($state) => !empty($state)),
+
+                Select::make('roles')
+                    ->label('Peran')
+                    ->nullable()
+                    ->multiple()
+                    ->relationship(
+                        name: 'roles',
+                        titleAttribute: 'name',
+                        modifyQueryUsing: function (Builder $query)  use ($isSuperAdmin) {
+                            if (!$isSuperAdmin) {
+                                $query->where('name', '!=', 'super_admin');
+                            }
+                        }
+                    )
+                    ->preload()
+                    ->searchable(),
             ]);
     }
 }
