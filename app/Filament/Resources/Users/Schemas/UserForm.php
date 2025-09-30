@@ -28,6 +28,7 @@ class UserForm
                     ->required()
                     ->string()
                     ->maxLength(255)
+                    ->regex('/^[a-zA-Z0-9._]+$/') // only letters, numbers, periods, underscores
                     ->unique(ignoreRecord: true),
                 TextInput::make('email')
                     ->label('Email')
@@ -54,9 +55,8 @@ class UserForm
                     ->minLength(6)
                     ->revealable()
                     ->dehydrated(fn($state) => !empty($state)),
-
                 Select::make('roles')
-                    ->label('Peran')
+                    ->label('Roles')
                     ->nullable()
                     ->multiple()
                     ->relationship(
