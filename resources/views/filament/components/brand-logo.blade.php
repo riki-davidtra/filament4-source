@@ -3,15 +3,15 @@
      $faviconUrl = $favicon ? Storage::url($favicon) : asset('assets/images/favicon.png');
  @endphp
 
- <a href="{{ route('filament.admin.pages.dashboard') }}" class="flex items-center space-x-1 p-2 rounded-lg animated-gradient transition">
+ <a href="{{ route('filament.admin.pages.dashboard') }}" class="flex items-center space-x-1 p-2 rounded-lg animated-gradient transition min-w-[200px]">
      <img src="{{ $faviconUrl }}" alt="Logo" class="h-8 w-8 rounded object-contain">
-     <span class="text-base font-bold text-gray-600 leading-none">
+     <span class="text-lg font-bold text-gray-700 leading-none">
          {{ App::make('settingItems')['site_name']->value ?? 'Site Name' }}
      </span>
  </a>
 
  <style>
-     header.fi-sidebar-header div .fi-logo {
+     nav.fi-topbar .fi-logo {
          height: 100% !important;
          padding-top: 0.5rem;
          padding-bottom: 0.5rem;
