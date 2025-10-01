@@ -46,8 +46,13 @@
          }
      </style>
 
+     @php
+         $logo = App::make('settingItems')['logo']->value ?? null;
+         $logoUrl = $logo ? Storage::url($logo) : asset('assets/images/logo.png');
+     @endphp
+
      <div class="text-center">
-         <img src="{{ asset('assets/images/logo.png') }}" alt="Logo" class="mx-auto h-20 rounded">
+         <img src="{{ $logoUrl }}" alt="Logo" class="mx-auto h-20 rounded">
 
          <div class="mt-2">
              <div class="text-2xl font-bold text-primary-600">
