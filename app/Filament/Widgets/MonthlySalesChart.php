@@ -3,9 +3,12 @@
 namespace App\Filament\Widgets;
 
 use Filament\Widgets\ChartWidget;
+use BezhanSalleh\FilamentShield\Traits\HasWidgetShield;
 
 class MonthlySalesChart extends ChartWidget
 {
+    use HasWidgetShield;
+
     protected ?string $heading  = 'Monthly Sales Chart';
     protected static ?int $sort = 3;
     // protected int | string | array $columnSpan = 'full'; 

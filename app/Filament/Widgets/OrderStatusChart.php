@@ -3,9 +3,12 @@
 namespace App\Filament\Widgets;
 
 use Filament\Widgets\ChartWidget;
+use BezhanSalleh\FilamentShield\Traits\HasWidgetShield;
 
 class OrderStatusChart extends ChartWidget
 {
+    use HasWidgetShield;
+
     protected ?string $heading  = 'Order Status Chart';
     protected static ?int $sort = 6;
     // protected int | string | array $columnSpan = 'full'; 

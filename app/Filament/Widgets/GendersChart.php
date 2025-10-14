@@ -3,9 +3,12 @@
 namespace App\Filament\Widgets;
 
 use Filament\Widgets\ChartWidget;
+use BezhanSalleh\FilamentShield\Traits\HasWidgetShield;
 
 class GendersChart extends ChartWidget
 {
+    use HasWidgetShield;
+
     protected ?string $heading  = 'Genders Chart';
     protected static ?int $sort = 4;
     // protected int | string | array $columnSpan = 'full'; 

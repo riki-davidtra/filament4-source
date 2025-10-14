@@ -3,9 +3,12 @@
 namespace App\Filament\Widgets;
 
 use Filament\Widgets\ChartWidget;
+use BezhanSalleh\FilamentShield\Traits\HasWidgetShield;
 
 class CustomerSatisfactionPolarChart extends ChartWidget
 {
+    use HasWidgetShield;
+
     protected ?string $heading  = 'Customer Satisfaction Polar Chart';
     protected static ?int $sort = 5;
     // protected int | string | array $columnSpan = 'full'; 
