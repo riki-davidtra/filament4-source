@@ -10,6 +10,7 @@ use Filament\Tables\Table;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Actions\ForceDeleteBulkAction;
+use Filament\Tables\Columns\ImageColumn;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -31,7 +32,15 @@ class UsersTable
             })
             ->defaultSort('created_at', 'desc')
             ->columns([
+                ImageColumn::make('avatar_url')
+                    ->label('Photo')
+                    ->disk('public')
+                    ->imageWidth(50)
+                    ->imageHeight(50)
+                    ->default(asset('assets/images/image-thumbnail.jpg'))
+                    ->circular(),
                 TextColumn::make('name')
+                    ->label('Name')
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('email')

@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Users\Schemas;
 
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Illuminate\Database\Eloquent\Builder;
@@ -18,6 +19,16 @@ class UserForm
 
         return $schema
             ->components([
+                FileUpload::make('avatar_url')
+                    ->label('Photo')
+                    ->nullable()
+                    ->image()
+                    ->disk('public')
+                    ->directory('avatars')
+                    ->maxSize(2048)
+                    ->openable()
+                    ->downloadable()
+                    ->columnSpanFull(),
                 TextInput::make('name')
                     ->label('Name')
                     ->required()

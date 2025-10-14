@@ -38,7 +38,7 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Indigo,
             ])
-            ->brandLogo(fn() => view('filament.components.brand-logo'))
+            ->brandLogo(fn() => view('filament.partials.brand-logo'))
             ->brandName(function () {
                 return App::make('settingItems')['site_name']->value ?? 'Site Name';
             })
