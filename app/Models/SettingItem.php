@@ -13,6 +13,11 @@ class SettingItem extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'options' => 'array',
+        'value'   => 'array',
+    ];
+
     public function uniqueIds(): array
     {
         return ['uuid'];

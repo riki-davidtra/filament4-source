@@ -96,6 +96,50 @@ class Settings extends Page implements Forms\Contracts\HasForms
                             ->openable()
                             ->maxSize(2048);
                         break;
+                    case 'select':
+                        $options = $item->options ?? [];
+                        $field   = Forms\Components\Select::make("items.$id")
+                            ->label($label)
+                            ->nullable()
+                            ->options($options);
+                        break;
+                    case 'select_multiple':
+                        if (!empty($item->options_source) && class_exists($item->options_source)) {
+                            $modelClass = $item->options_source;
+                            $options    = $modelClass::query()->pluck('nama', 'id')->toArray();
+                        } else {
+                            $options = $item->options ?? [];
+                        }
+                        $field = Forms\Components\Select::make("items.$id")
+                            ->label($label)
+                            ->nullable()
+                            ->multiple()
+                            ->options($options);
+                        break;
+                    case 'radio':
+                        $options = $item->options ?? '[]';
+                        $field   = Forms\Components\Radio::make("items.$id")
+                            ->label($label)
+                            ->nullable()
+                            ->options($options);
+                        break;
+                    case 'toggle':
+                        $field = Forms\Components\Toggle::make("items.$id")
+                            ->label($label)
+                            ->nullable();
+                        break;
+                    case 'checkbox':
+                        $field = Forms\Components\Checkbox::make("items.$id")
+                            ->label($label)
+                            ->nullable();
+                        break;
+                    case 'checkbox_list':
+                        $options = $item->options ?? [];
+                        $field   = Forms\Components\CheckboxList::make("items.$id")
+                            ->label($label)
+                            ->nullable()
+                            ->options($options);
+                        break;
                     default:
                         continue 2;
                 }
@@ -124,7 +168,22 @@ class Settings extends Page implements Forms\Contracts\HasForms
             foreach ($setting->settingItems as $item) {
                 $itemId = $item->id;
 
-                if (in_array($item->type, ['text', 'textarea', 'textarea_editor', 'url', 'number', 'email', 'color', 'file'])) {
+                if (in_array($item->type, [
+                    'text',
+                    'textarea',
+                    'textarea_editor',
+                    'url',
+                    'number',
+                    'email',
+                    'color',
+                    'file',
+                    'select',
+                    'select_multiple',
+                    'radio',
+                    'toggle',
+                    'checkbox',
+                    'checkbox_list',
+                ])) {
                     $item->value = $data['items'][$itemId] ?? null;
                 }
 

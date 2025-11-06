@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('key');
             $table->string('type');
+            $table->text('options')->nullable();  // example: [1 => 'Option 1', 2 => 'Option 2']
+            $table->string('options_source')->nullable(); // example: App\Models\User
             $table->text('value')->nullable();
             $table->text('helper_text')->nullable();
             $table->softDeletes();
