@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             SettingSeeder::class,
             RolePermissionSeeder::class,
+            CategorySeeder::class,
         ];
 
         foreach ($seeders as $seeder) {
