@@ -9,6 +9,7 @@ use App\Filament\Resources\Users\Schemas\UserForm;
 use App\Filament\Resources\Users\Tables\UsersTable;
 use App\Models\User;
 use BackedEnum;
+use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -19,7 +20,11 @@ class UserResource extends Resource
     protected static ?string $model = User::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUsers;
-    protected static ?int $navigationSort                   = 1;
+    protected static ?int $navigationSort = 11;
+    // protected static string | UnitEnum | null $navigationGroup = '';
+    // protected static ?string $navigationLabel                  = 'Users';
+    // protected static ?string $pluralModelLabel                 = 'Users';
+    // protected static ?string $modelLabel                       = 'User';
 
     protected static ?string $recordTitleAttribute = 'name';
 

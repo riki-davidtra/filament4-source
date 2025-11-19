@@ -24,7 +24,9 @@ class Settings extends Page implements Forms\Contracts\HasForms
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCog;
     protected string $view                                  = 'filament.pages.settings';
-    protected static ?int $navigationSort                   = 101;
+    protected static ?int $navigationSort                   = 111;
+    // protected static ?string $navigationLabel               = 'Setting';
+    // protected static ?string $title                         = 'Setting';
 
     public $settings;
     public $items = [];
