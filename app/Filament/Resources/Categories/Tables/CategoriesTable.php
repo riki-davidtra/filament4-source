@@ -2,9 +2,11 @@
 
 namespace App\Filament\Resources\Categories\Tables;
 
+use Dom\Text;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -18,6 +20,10 @@ class CategoriesTable
                 TextColumn::make('name')
                     ->label('Name')
                     ->searchable()
+                    ->sortable(),
+                IconColumn::make('is_active')
+                    ->label('Is Active')
+                    ->boolean()
                     ->sortable(),
                 TextColumn::make('created_at')
                     ->label('Created At')

@@ -26,7 +26,8 @@ class CategorySeeder extends Seeder
             Category::updateOrCreate(
                 ['name' => $item['name']],
                 [
-                    'name' => $item['name'],
+                    'name'      => $item['name'],
+                    'is_active' => true,
                 ]
             );
         }

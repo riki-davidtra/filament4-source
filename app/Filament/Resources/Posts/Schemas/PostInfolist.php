@@ -23,7 +23,7 @@ class PostInfolist
                 TextEntry::make('categories.name')
                     ->label('Categories')
                     ->badge()
-                    ->separator(', '),
+                    ->placeholder('No categories assigned.'),
 
                 Fieldset::make('Content')
                     ->schema([
@@ -44,6 +44,9 @@ class PostInfolist
                         'archived'  => 'danger',
                         default     => 'gray',
                     }),
+                TextEntry::make('user.name')
+                    ->label('Author')
+                    ->placeholder('No author assigned.'),
                 TextEntry::make('created_at')
                     ->label('Created At')
                     ->dateTime(),

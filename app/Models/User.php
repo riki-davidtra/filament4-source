@@ -84,4 +84,9 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
         $avatarColumn = config('filament-edit-profile.avatar_column', 'avatar_url');
         return $this->$avatarColumn ? Storage::url($this->$avatarColumn) : null;
     }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }

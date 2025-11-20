@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Categories\Schemas;
 
 use Dom\Text;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Schema;
 
 class CategoryForm
@@ -18,6 +19,10 @@ class CategoryForm
                     ->string()
                     ->maxLength(255)
                     ->columnSpanFull(),
+                Toggle::make('is_active')
+                    ->label('Is Active')
+                    ->nullable()
+                    ->default(false),
             ]);
     }
 }
