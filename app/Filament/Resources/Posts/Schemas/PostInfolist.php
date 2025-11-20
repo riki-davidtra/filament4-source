@@ -4,7 +4,6 @@ namespace App\Filament\Resources\Posts\Schemas;
 
 use Filament\Infolists\Components\ImageEntry;
 use Filament\Infolists\Components\TextEntry;
-use Filament\Forms\Components\RichEditor\RichContentRenderer;
 use Filament\Schemas\Components\Fieldset;
 use Filament\Schemas\Schema;
 
@@ -21,11 +20,15 @@ class PostInfolist
                     ->columnSpanFull(),
                 TextEntry::make('title')
                     ->label('Title'),
+                TextEntry::make('categories.name')
+                    ->label('Categories')
+                    ->badge()
+                    ->separator(', '),
 
-                Fieldset::make('')
+                Fieldset::make('Content')
                     ->schema([
                         TextEntry::make('content')
-                            ->label('Content')
+                            ->hiddenLabel()
                             ->markdown()
                             ->placeholder('No content available.')
                             ->columnSpanFull(),

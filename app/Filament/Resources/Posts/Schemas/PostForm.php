@@ -31,6 +31,12 @@ class PostForm
                     ->required()
                     ->string()
                     ->maxLength(255),
+                Select::make('categories')
+                    ->label('Categories')
+                    ->relationship('categories', 'name')
+                    ->multiple()
+                    ->searchable()
+                    ->preload(),
                 RichEditor::make('content')
                     ->label('Content')
                     ->nullable()
