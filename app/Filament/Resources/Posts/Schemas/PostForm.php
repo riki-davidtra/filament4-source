@@ -33,7 +33,11 @@ class PostForm
                     ->maxLength(255),
                 Select::make('categories')
                     ->label('Categories')
-                    ->relationship('categories', 'name')
+                    ->relationship(
+                        name: 'categories',
+                        titleAttribute: 'name',
+                        modifyQueryUsing: fn($query) => $query->where('is_active', true)
+                    )
                     ->multiple()
                     ->searchable()
                     ->preload(),
