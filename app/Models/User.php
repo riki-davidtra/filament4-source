@@ -6,7 +6,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Ramsey\Uuid\Uuid;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Filament\Panel;
@@ -58,16 +57,6 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
     }
 
     protected $dates = ['deleted_at'];
-
-    public function uniqueIds(): array
-    {
-        return ['uuid'];
-    }
-
-    public function newUniqueId(): string
-    {
-        return (string) Uuid::uuid7();
-    }
 
     public function getRouteKeyName()
     {
